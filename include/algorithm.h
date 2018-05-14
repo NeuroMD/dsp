@@ -22,6 +22,7 @@
 #include <array>
 #include <cmath>
 #include <algorithm>
+#include <numeric>
 #include <vector>
 
 namespace alg {
