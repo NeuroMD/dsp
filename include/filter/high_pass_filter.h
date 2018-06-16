@@ -1,0 +1,4 @@
+#ifndef HIGH_PASS_FILTER_H
+#define HIGH_PASS_FILTER_H
+
+#endif // HIGH_PASS_FILTER_H

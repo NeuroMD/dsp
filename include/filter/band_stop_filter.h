@@ -1,0 +1,4 @@
+#ifndef BAND_STOP_FILTER_H
+#define BAND_STOP_FILTER_H
+
+#endif // BAND_STOP_FILTER_H

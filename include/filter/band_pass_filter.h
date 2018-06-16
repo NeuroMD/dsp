@@ -1,0 +1,4 @@
+#ifndef BAND_PASS_FILTER_H
+#define BAND_PASS_FILTER_H
+
+#endif // BAND_PASS_FILTER_H

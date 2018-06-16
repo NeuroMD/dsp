@@ -18,13 +18,11 @@
 #define SIGNAL_FILTER_H
 
 #include <vector>
-#include <stdexcept>
-#include "circular_buffer.h"
 
 template <typename T>
 class DigitalFilter{
 public:
-    virtual ~DigitalFilter(){};
+    virtual ~DigitalFilter(){}
     virtual T filter(T) = 0;
     virtual void reset() = 0;
 };
