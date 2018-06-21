@@ -7,7 +7,7 @@ template <typename PassbandType>
 class ClassicFilterAlgorithm : private PassbandType{
 protected:
     template <typename T>
-    T filter(T&& sample){
+    auto filter(T&& sample){
         auto V0 = sample;
         for (auto i = PassbandType::Order; i > 0; i--) {
             V0 = V0 - this->Denominators[i] * this->V[i - 1];
@@ -26,7 +26,7 @@ template <typename PassbandType>
 class FilterSolutionAlgorithm : private PassbandType{
 protected:
     template <typename T>
-    T filter(T&& sample){
+    auto filter(T&& sample){
         auto sumden = T{0}, sumnum = T{0};
         for (auto i = decltype(PassbandType::Order){0}; i < PassbandType::Order; i++) {
             sumden += this->V[i] * this->Denominators[i];
