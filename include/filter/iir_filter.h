@@ -10,20 +10,16 @@ namespace DSP {
 template <typename T, typename Passband, template <class> class Algorithm, template <class> class DirectionStrategy = ForwardFiltering>
 class IIRFilter : public DigitalFilter<T>, private DirectionStrategy<Algorithm<Passband>> {
 public:
-    T filter(const T &sample) override{
+    T filter(T sample) override{
         return this->performFiltering(sample);
-    }
-
-    T filter(T&& sample) override{
-        return this->performFiltering(std::move(sample));
     }
 };
 
-template <class Passband>
-using IIRForwardFilter = IIRFilter<double, Passband, FilterSolutionAlgorithm>;
+template <class Passband, typename T = double>
+using IIRForwardFilter = IIRFilter<T, Passband, FilterSolutionAlgorithm>;
 
-template <class Passband>
-using IIRReverseFilter = IIRFilter<double, Passband, FilterSolutionAlgorithm, ReverseFiltering>;
+template <class Passband, typename T = double>
+using IIRReverseFilter = IIRFilter<T, Passband, FilterSolutionAlgorithm, ReverseFiltering>;
 
 }
 

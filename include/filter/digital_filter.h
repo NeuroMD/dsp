@@ -9,8 +9,7 @@ template <typename T>
 class DigitalFilter{
 public:
     virtual ~DigitalFilter(){}
-    virtual T filter(const T &) = 0;
-    virtual T filter(T &&) = 0;
+    virtual T filter(T) = 0;
 };
 
 template <typename T>

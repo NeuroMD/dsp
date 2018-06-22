@@ -7,8 +7,8 @@ template <typename FilterAlgorithm>
 class ForwardFiltering : private FilterAlgorithm {
 protected:
     template <typename T>
-    auto performFiltering(T&& sample){
-        return this->filter(std::forward<T>(sample));
+    T performFiltering(T sample){
+        return this->filter(sample);
     }
 };
 
@@ -16,8 +16,8 @@ template <typename FilterAlgorithm>
 class ReverseFiltering : private FilterAlgorithm {
 protected:
     template <typename T>
-    auto performFiltering(T&& sample){
-        return sample - this->filter(std::forward<T>(sample));
+    T performFiltering(T sample){
+        return sample - this->filter(sample);
     }
 };
 
