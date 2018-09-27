@@ -190,7 +190,7 @@ namespace alg {
         auto complexResult = complex_fft(complexData);
         std::vector<T> result(complexResult.size());
         std::transform(complexResult.begin(), complexResult.end(), result.begin(),
-                       [](const std::complex<T> &c) { return std::norm(c); });
+                       [](const std::complex<T> &c) { return std::abs(c); });
         return result;
     }
 
