@@ -1,19 +1,16 @@
 #ifndef DIGITAL_FILTER_H
 #define DIGITAL_FILTER_H
 
-#include <memory>
-
 namespace DSP {
 
 template <typename T>
 class DigitalFilter{
 public:
-    virtual ~DigitalFilter(){}
+	using SampleType = T;
+
+	virtual ~DigitalFilter() = default;
     virtual T filter(T) = 0;
 };
-
-template <typename T>
-using DigitalFilterPtr = std::unique_ptr<DigitalFilter<T>>;
 
 }
 
