@@ -8,9 +8,9 @@ namespace DSP {
 
 template <
 	typename T, 
-	template <typename, typename...> typename FilterContainer,
-	template <typename...> typename SmartPtr,
-	template <typename> typename FilterBaseType = DigitalFilter
+	template <typename...> class FilterContainer,
+	template <typename...> class SmartPtr,
+	template <typename> class FilterBaseType = DigitalFilter
 >
 class CascadeFilter : public DigitalFilter<T> {
 public:
@@ -40,9 +40,9 @@ private:
 };
 
 template <
-	template <typename...> typename SmartPtr,
-	template <typename...> typename Container,
-	template <typename> typename FilterBaseType = DigitalFilter,
+	template <typename...> class SmartPtr,
+	template <typename...> class Container,
+	template <typename> class FilterBaseType = DigitalFilter,
 	typename... ContainerArgs
 >
 auto make_cascade_filter(Container<ContainerArgs...> &&collection) {
@@ -51,9 +51,9 @@ auto make_cascade_filter(Container<ContainerArgs...> &&collection) {
 }
 
 template <
-	template <typename...> typename SmartPtr,
-	template <typename, typename...> typename Container,
-	template <typename> typename FilterBaseType = DigitalFilter,
+	template <typename...> class SmartPtr,
+	template <typename, typename...> class Container,
+	template <typename> class FilterBaseType = DigitalFilter,
 	typename... ContainerArgs
 >
 auto make_cascade_filter(const Container<ContainerArgs...> &collection) {
