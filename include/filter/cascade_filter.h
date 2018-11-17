@@ -9,11 +9,12 @@ namespace DSP {
 template <
 	typename T, 
 	template <typename, typename...> typename FilterContainer,
-	template <typename...> typename SmartPtr
+	template <typename...> typename SmartPtr,
+	template <typename> typename FilterBaseType = DigitalFilter
 >
 class CascadeFilter : public DigitalFilter<T> {
 public:
-	using ContainerType = FilterContainer<SmartPtr<DigitalFilter<T>>>;
+	using ContainerType = FilterContainer<SmartPtr<FilterBaseType<T>>>;
 
 	template <typename FilterPointerInputIterator>
 	CascadeFilter(FilterPointerInputIterator begin, FilterPointerInputIterator end) :
@@ -21,7 +22,7 @@ public:
 	{}
 
 	explicit CascadeFilter(const ContainerType &filter_collection) :
-		mFilterCollection(std::move(filter_collection))
+		mFilterCollection(filter_collection)
 	{}
 
 	explicit CascadeFilter(ContainerType &&filter_collection) :
@@ -39,14 +40,25 @@ private:
 };
 
 template <
-	typename T,
 	template <typename...> typename SmartPtr,
-	template <typename, typename...> typename Container,
-	typename ContainerElement = SmartPtr<DigitalFilter<T>>,
+	template <typename...> typename Container,
+	template <typename> typename FilterBaseType = DigitalFilter,
 	typename... ContainerArgs
 >
-auto make_cascade_filter(Container<ContainerElement, ContainerArgs...>&& collection) {
-	return CascadeFilter<T, Container, SmartPtr>(std::forward<Container<ContainerElement, ContainerArgs...>>(collection));
+auto make_cascade_filter(Container<ContainerArgs...> &&collection) {
+	using T = typename Container<ContainerArgs...>::value_type::element_type::SampleType;
+	return CascadeFilter<T, Container, SmartPtr, FilterBaseType>(std::move(collection));
+}
+
+template <
+	template <typename...> typename SmartPtr,
+	template <typename, typename...> typename Container,
+	template <typename> typename FilterBaseType = DigitalFilter,
+	typename... ContainerArgs
+>
+auto make_cascade_filter(const Container<ContainerArgs...> &collection) {
+	using T = typename Container<ContainerArgs...>::value_type::element_type::SampleType;
+	return CascadeFilter<T, Container, SmartPtr, FilterBaseType>(collection);
 }
 
 }
